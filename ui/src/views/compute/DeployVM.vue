@@ -587,7 +587,7 @@
                             </a-input-group>
                           </div><br/><br/>
                         </div>
-                        <div v-if="userdataDefaultOverridePolicy === 'allowoverride' || userdataDefaultOverridePolicy === 'append'">
+                        <div v-if="userdataDefaultOverridePolicy === 'allowoverride' || userdataDefaultOverridePolicy === 'append' || !userdataDefaultOverridePolicy">
                           <span v-if="userdataDefaultOverridePolicy === 'allowoverride'" >
                             {{ $t('label.userdata.do.override') }}
                             <a-switch v-model:checked="doUserdataOverride" style="margin-left: 10px"/>
@@ -599,7 +599,7 @@
                           <a-step
                             :status="zoneSelected ? 'process' : 'wait'">
                             <template #description>
-                              <div v-if="doUserdataOverride || doUserdataAppend" style="margin-top: 15px">
+                              <div v-if="doUserdataOverride || doUserdataAppend || !userdataDefaultOverridePolicy" style="margin-top: 15px">
                                 <a-card
                                   :tabList="userdataTabList"
                                   :activeTabKey="userdataTabKey"
@@ -1364,6 +1364,8 @@ export default {
 
           if (this.template.userdataid) {
             instanceConfig.userdataid = this.template.userdataid
+            this.doUserdataOverride = false
+            this.doUserdataAppend = false
           }
         }
 
@@ -1379,6 +1381,8 @@ export default {
 
           if (this.iso.userdataid) {
             instanceConfig.userdataid = this.iso.userdataid
+            this.doUserdataOverride = false
+            this.doUserdataAppend = false
           }
         }
 
